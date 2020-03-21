@@ -17,7 +17,6 @@ def help(args):
 
 # the main argument parser
 parser = argparse.ArgumentParser(description='Command line manager for user defined functions and aliases.')
-# parser.add_argument('add', help='Add a new function or alias', nargs='+', required=False)
 
 # subparsers for subcommands
 subparsers = parser.add_subparsers(help='sub-command help')
@@ -37,6 +36,8 @@ parser_edit.set_defaults(func=edit)
 parser_inspect.set_defaults(func=inspect)
 parser_load.set_defaults(func=load)
 parser_help.set_defaults(func=help)
+
+parser_inspect.add_argument('command', help='The command to be inspected', nargs='+')
 
 # add additional arguments to the 'add' subcommand
 parser_add.add_argument('-c', '--command', help='The name that will be used to register the function', type=str)
