@@ -12,12 +12,14 @@ dependencies:
   - openssl=1.1.1e=h1de35cc_0
   - pip=20.0.2=py38_1
   - python=3.8.1=h359304d_1
+  - pyyaml=5.3=py38h1de35cc_0
   - readline=7.0=h1de35cc_5
   - setuptools=46.0.0=py38_0
   - sqlite=3.31.1=ha441bb4_0
   - tk=8.6.8=ha441bb4_0
   - wheel=0.34.2=py38_0
   - xz=5.2.4=h1de35cc_4
+  - yaml=0.1.7=hc338f04_2
   - zlib=1.2.11=h1de35cc_3
 
 
