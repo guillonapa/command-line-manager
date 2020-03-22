@@ -2,6 +2,7 @@ import os
 import __util__ as util
 
 def load(args):
+    '''Genereate the '__functions.sh__' file with all declared commands.'''
     # sanity check
     util.verify_lib_dir()
     util.verify_internal_dir()
@@ -21,6 +22,8 @@ def load(args):
     os.chdir(util.internal_dir())
     # os.system('source ' + '__functions__.sh')
 
+    print('#')
+    print('# The \'__functions__.sh\' file has been regenerated.')
     print('#')
     print('# Run the following command to load the functions:')
     print('#')

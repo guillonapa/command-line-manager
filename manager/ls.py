@@ -16,7 +16,7 @@ def ls(args):
     if not all_files:
         print('No functions or aliases have been defined yet')
     else:
-        print('Loaded functions and aliases:')
+        print('Registered functions:')
         for i, f in enumerate(sorted(os.listdir())):
             with open(f) as file:
                 yaml_file = yaml.full_load(file)

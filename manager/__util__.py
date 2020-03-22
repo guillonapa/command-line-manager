@@ -77,6 +77,6 @@ def format_function(name, body):
     if not body_string:
         function_file = os.path.abspath(os.path.join(lib_dir(), name + '.sh'))
         body_string = 'echo "# The body for the command \'' + name + '\' has not been defined yet."'
-        body_string = body_string + '\necho "#"' + '\necho "# Enter your code in:"' + '\necho "#"' + '\necho "#\t' + function_file + '"'
+        body_string = body_string + '\n\techo "#"' + '\n\techo "# Enter your code in:"' + '\n\techo "#"' + '\n\techo "#\t' + function_file + '"'
 
     return 'function {}() {{\n\t{}\n}}'.format(name, body_string)

@@ -38,6 +38,7 @@ parser_load.set_defaults(func=load)
 parser_help.set_defaults(func=help)
 
 parser_inspect.add_argument('command', help='The command to be inspected', nargs='+')
+parser_rm.add_argument('command', help='The command to be deleted from the registry', nargs='+')
 
 # add additional arguments to the 'add' subcommand
 parser_add.add_argument('-c', '--command', help='The name that will be used to register the function', type=str)
