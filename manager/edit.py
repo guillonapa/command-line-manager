@@ -16,15 +16,25 @@ def edit(args):
             file_command = None
             description = None
 
+            if args.name:
+                name = args.name
+            if args.command:
+                file_command = args.command_name
+            if args.description:
+                description = args.description
+
             with open(command + '.yml', mode='r', encoding='utf-8') as f:
                 yaml_file = yaml.full_load(f)
                 try:
-                    name = input('Name (' + yaml_file['name'] + '): ')
-                    file_command = input('Command name (' + yaml_file['command'] + '): ')
-                    description_postfix = ''
-                    if len(yaml_file['description']) > 10:
-                        description_postfix = '...'
-                    description = input('Description (' + yaml_file['description'][:10] + description_postfix + '): ')
+                    if not name:
+                        name = input('Name (' + yaml_file['name'] + '): ')
+                    if not file_command:
+                        file_command = input('Command name (' + yaml_file['command'] + '): ')
+                    if not description:
+                        description_postfix = ''
+                        if len(yaml_file['description']) > 10:
+                            description_postfix = '...'
+                        description = input('Description (' + yaml_file['description'][:10] + description_postfix + '): ')
 
                     if not name.strip():
                         name = yaml_file['name']
