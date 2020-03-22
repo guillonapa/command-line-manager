@@ -59,8 +59,8 @@ def write_file(metadata):
 
     if not os.path.exists(metadata['command'] + ext):
         file_name = metadata['command'] + ext
-        with open(file=file_name, mode='w', encoding='utf-8') as file:
-            yaml.dump(metadata, file)
+        with open(file=file_name, mode='w', encoding='utf-8') as f:
+            yaml.dump(metadata, f)
     else:
         print('Can\'t write over file: ' + metadata['command'] + ext) 
         exit(1)

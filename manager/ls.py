@@ -18,6 +18,6 @@ def ls(args):
     else:
         print('Registered functions:')
         for i, f in enumerate(sorted(os.listdir())):
-            with open(f) as file:
-                yaml_file = yaml.full_load(file)
+            with open(f) as f:
+                yaml_file = yaml.full_load(f)
                 print('{:>4}. {} ({})'.format(str(i + 1), yaml_file['name'], yaml_file['command']))

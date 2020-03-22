@@ -13,8 +13,8 @@ def inspect(args):
             print('# Contents for \'' + command + '\' (' + os.path.abspath(command + '.sh') + ')\n')
             
             lines = ''
-            with open(command + '.sh', mode='r', encoding='utf-8') as file:
-                for line in file.readlines():
+            with open(command + '.sh', mode='r', encoding='utf-8') as f:
+                for line in f.readlines():
                     lines = lines + '    ' + line
 
             if lines:
