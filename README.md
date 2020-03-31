@@ -13,20 +13,33 @@ There are two parts for the manager: metadata and content. When adding a new com
 
 You will need to modify the shell file to write your own command or script, but you are encoraged to only modify the metadata file using the Command Line Manager's `add`, `edit`, and `rm` sub-commands.
 
-After you have generated commands, you can run the `load` sub-command to generate a file called `__functions.sh__`. Source this file and that's it!
+After you have generated commands, you can run the `load` sub-command to generate a file called `__functions__.sh`. Source this file and that's it!
 
 If you need to add further files, feel free to place them (or any directories) under `~/.clmanager/public`, and reference them in your scripts as needed.
 
 ## Getting Started
 
-This will change soon, but for now you can clone the repository and run the `manager.py` file directly.
+Clone the repository and run the `setup.py` file.
 
-Make sure to create the following empty directories:
+```
+$ git clone https://github.com/guillonapa/command-line-manager.git
+$ cd command-line-manager
+$ python setup.py
+```
 
-1. `~/.clmanager`
-2. `~/.clmanager/lib`
-3. `~/.clmanager/metadata`
-4. `~/.clmanager/internal`
-5. `~/.clmanager/public`
+At this point you can call the manager directly.
 
-After you have added commands to the manager, you will need to source the generated `__functions.sh__` file.
+```
+python manager/manager.py
+```
+
+However, you can add a snippet like this to your `.bash_profile`, `.zshrc`, or similar:
+
+```
+function clmanager() {
+    # call the manager and pass along all the arguments
+    python ~/path/to/git/clone/manager/manager.py "$@"
+}
+```
+
+If you do this, you will be able to call `clmanager` directly in your terminal without having to worry about the path to the manger script.
