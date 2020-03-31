@@ -73,6 +73,7 @@ def metadata_dir():
     return path.join(manager_dir, 'metadata')
 
 def format_function(name, body):
+    '''Return a string with the generated function using the name and the body passed as arguments'''
     body_string = '\t'.join(body)
     if not body_string:
         function_file = os.path.abspath(os.path.join(lib_dir(), name + '.sh'))
@@ -80,3 +81,11 @@ def format_function(name, body):
         body_string = body_string + '\n\techo "#"' + '\n\techo "# Enter your code in:"' + '\n\techo "#"' + '\n\techo "#\t' + function_file + '"'
 
     return 'function {}() {{\n\t{}\n}}'.format(name, body_string)
+
+def metadata_file_name(command):
+    '''Return the name of the metadata file for the command'''
+    return str(command) + '.yml'
+
+def shell_file_name(command):
+    '''Return the name of the shell file for the command'''
+    return str(command) + '.sh'

@@ -2,13 +2,14 @@ import os
 import yaml
 import __util__ as util
 
-path = os.path
-
 def ls(args):
-    '''List all the available functions and aliases in the manager'''
+    '''List the commands in the manager'''
 
-    # the directory where functions/aliases files live    
+    # sanity check 
     util.verify_metadata_dir()
+
+    # remember the current directory
+    curr_dir = os.getcwd()
 
     # change to lib directory and print all file names (same as commands)
     os.chdir(util.metadata_dir())
@@ -17,7 +18,10 @@ def ls(args):
         print('No functions or aliases have been defined yet')
     else:
         print('Registered functions:')
-        for i, f in enumerate(sorted(os.listdir())):
+        for i, f in enumerate(sorted(all_files)):
             with open(f) as f:
                 yaml_file = yaml.full_load(f)
                 print('{:>4}. {} ({})'.format(str(i + 1), yaml_file['name'], yaml_file['command']))
+
+    # go back to the original directory
+    os.chdir(curr_dir)

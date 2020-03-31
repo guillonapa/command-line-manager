@@ -2,8 +2,9 @@ import os
 import yaml
 import __util__ as util
 
+
 def add(args):
-    '''Add a new function or alias to the manager'''
+    '''Add a new command to the manager'''
 
     # sanity check
     util.verify_lib_dir()
@@ -13,6 +14,7 @@ def add(args):
     command = None
     description = None
 
+    # get the values of any flags that were passed
     if args.name:
         name = args.name
     if args.command:
@@ -20,6 +22,7 @@ def add(args):
     if args.description:
         description = args.description
 
+    # get the remaining data from stdin if not all flags were passed
     try:
         if not name:
             name = input('Name: ')
@@ -30,13 +33,22 @@ def add(args):
     except EOFError:
         exit(2)
 
+    # write the metadata file
     write_file({'name': name, 'command': command, 'description': description})
 
+    # create the shell file in lib
     create_entry_point(command)
 
+
 def create_entry_point(command):
+    '''Create an empty shell file in the 'lib' directory for the command's body'''
+    
+    # remember the current directory
+    curr_dir = os.getcwd()
+    # go to the root directory where shell files exist for the manager
     os.chdir(util.lib_dir())
-    file_name = command + '.sh'
+    # attempt to write the file
+    file_name = util.shell_file_name(command)
     if not os.path.exists(file_name):
         with open(file_name, mode='w', encoding='utf-8') as f:
             print('#')
@@ -51,16 +63,25 @@ def create_entry_point(command):
             print('#')
     else:
         print('Can\'t write over file: ' + file_name)
+        exit(1)
+    # return to the current directory
+    os.chdir(curr_dir)
 
     
 def write_file(metadata):
-    os.chdir(util.metadata_dir())
-    ext = '.yml'
+    '''Generate the metadata file for the new command in the 'metadata' directory'''
 
-    if not os.path.exists(metadata['command'] + ext):
-        file_name = metadata['command'] + ext
+    # remember the current directory
+    curr_dir = os.getcwd()
+    # go to the root directory where all metadata files exist for the manager
+    os.chdir(util.metadata_dir())
+    # attempt to write the file
+    file_name = util.metadata_file_name(metadata['command'])
+    if not os.path.exists(file_name):
         with open(file=file_name, mode='w', encoding='utf-8') as f:
             yaml.dump(metadata, f)
     else:
-        print('Can\'t write over file: ' + metadata['command'] + ext) 
+        print('Can\'t write over file: ' + file_name) 
         exit(1)
+    # return to the current directory
+    os.chdir(curr_dir)

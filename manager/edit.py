@@ -3,27 +3,37 @@ import yaml
 import __util__ as util
 
 def edit(args):
+    '''Edit an existing command in the manager'''
+
     # sanity check
     util.verify_metadata_dir()
     util.verify_lib_dir()
 
-    for command in args.command:
-        os.chdir(util.metadata_dir())
-        if os.path.exists(command + '.yml'):
-            print('# Editing ' + command + '.yml')
+    # remember the current directory
+    curr_dir = os.getcwd()
 
+    # at the moment args.command should always be an array of one element
+    for command in args.command:
+        # make sure we are on the right directory
+        os.chdir(util.metadata_dir())
+        # the name of the metadata file
+        metadata_file_name = util.metadata_file_name(command)
+        # verify that the file actually exists
+        if os.path.exists(metadata_file_name):
+            print('# Editing ' + metadata_file_name)
+            # the metadata needed
             name = None
             file_command = None
             description = None
-
+            # extract any info available in flags
             if args.name:
                 name = args.name
             if args.command:
                 file_command = args.command_name
             if args.description:
                 description = args.description
-
-            with open(command + '.yml', mode='r', encoding='utf-8') as f:
+            # open the file to update to read existing contents and prompt for new values
+            with open(metadata_file_name, mode='r', encoding='utf-8') as f:
                 yaml_file = yaml.full_load(f)
                 try:
                     if not name:
@@ -35,7 +45,7 @@ def edit(args):
                         if len(yaml_file['description']) > 10:
                             description_postfix = '...'
                         description = input('Description (' + yaml_file['description'][:10] + description_postfix + '): ')
-
+                    # only save values that are not empty strings
                     if not name.strip():
                         name = yaml_file['name']
                     if not file_command.strip():
@@ -45,21 +55,28 @@ def edit(args):
                 except EOFError:
                     exit(2)
 
-            with open(command + '.yml', mode='w', encoding='utf-8') as f:
+            # attempt to rewrite the metadata file
+            with open(metadata_file_name, mode='w', encoding='utf-8') as f:
                 yaml.dump({'name': name, 'command': file_command, 'description': description}, f)
             
-            os.rename(command + '.yml', file_command + '.yml')
+            # rename the file to match the new command name
+            os.rename(metadata_file_name, util.metadata_file_name(file_command))
             
+            # go to the directory with all shell files
             os.chdir(util.lib_dir())
-            os.rename(command + '.sh', file_command + '.sh')
+            # rename the corresponding shell file to match the new command name
+            os.rename(util.shell_file_name(command), util.shell_file_name(file_command))
 
+            # print a summary message of the changes
             note = ''
             if command != file_command:
                 note = ' (now ' + file_command + ')'
-
             print('#')
             print('# The metadata for \'' + command + '\'' + note + ' has been updated.')
             print('#')
             print('# To modify the command itself, edit:')
             print('#')
             print('#\t' + os.path.abspath(file_command + '.sh'))
+    
+    # return to the original directory
+    os.chdir(curr_dir)
