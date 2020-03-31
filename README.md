@@ -15,7 +15,7 @@ You will need to modify the shell file to write your own command or script, but 
 
 After you have generated commands, you can run the `load` sub-command to generate a file called `__functions.sh__`. Source this file and that's it!
 
-If you need to add further files, feel free to place them (or any directories) under `~.clmanager/public`, and reference them in your scripts as needed.
+If you need to add further files, feel free to place them (or any directories) under `~/.clmanager/public`, and reference them in your scripts as needed.
 
 ## Getting Started
 
