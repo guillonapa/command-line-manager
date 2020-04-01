@@ -30,16 +30,22 @@ $ python setup.py
 At this point you can call the manager directly.
 
 ```
-python manager/manager.py
+$ python manager/manager.py
 ```
 
 However, you can add a snippet like this to your `.bash_profile`, `.zshrc`, or similar:
 
-```
+```sh
 function clmanager() {
     # call the manager and pass along all the arguments
     python ~/path/to/git/clone/manager/manager.py "$@"
 }
+```
+
+You will also need to add to your `.bash_profile` or `.zshrc` the following:
+
+```sh
+source ~/.clmanager/internal/__functions__.sh
 ```
 
 If you do this, you will be able to call `clmanager` directly in your terminal without having to worry about the path to the manger script.
