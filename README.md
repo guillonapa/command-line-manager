@@ -2,7 +2,7 @@
 
 The **Command Line Manager** is an utility to easily manage personal scripts. Through the cli, you can add, edit, remove, and explore your commands (the entry point to your scripts). This is an easy way to keep things organized and boost productivity.
 
-![command line manager preview](lib/preview.gif)
+![command line manager preview](lib/usage.gif)
 
 ## How it Works
 
