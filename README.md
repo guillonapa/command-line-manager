@@ -42,10 +42,10 @@ function clmanager() {
 }
 ```
 
-You will also need to add to your `.bash_profile` or `.zshrc` the following:
+If you do this, you will be able to call `clmanager` directly in your terminal without having to worry about the path to the manger script.
+
+Finally, for the Command Line Manager to work, you will need to add to your `.bash_profile` or `.zshrc` the following:
 
 ```sh
 source ~/.clmanager/internal/__functions__.sh
 ```
-
-If you do this, you will be able to call `clmanager` directly in your terminal without having to worry about the path to the manger script.
