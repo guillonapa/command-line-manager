@@ -54,6 +54,9 @@ parser_add.add_argument('-c', '--command', help='The name that will be used to r
 parser_add.add_argument('-n', '--name', help='A human-readable name to identify the command', type=str)
 parser_add.add_argument('-d', '--description', help='A brief description of what the command does', type=str)
 
+# add additional arguments to the 'load' subcommand
+parser_load.add_argument('-q', '--quiet', help='Do not print anything to stdout', action='store_const', const=True)
+
 # add the default function for the main parser
 parser.set_defaults(func=help)
 

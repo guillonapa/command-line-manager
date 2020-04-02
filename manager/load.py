@@ -3,7 +3,7 @@ import __util__ as util
 
 def load(args):
     '''Genereate the '__functions.sh__' file with all declared commands.'''
-
+    
     # sanity check
     util.verify_lib_dir()
     util.verify_internal_dir()
@@ -25,14 +25,15 @@ def load(args):
                 func_file.write(util.format_function(os.path.splitext(f)[0], body))
                 func_file.write('\n\n')
     
-    # print a summary of the changes
-    os.chdir(util.internal_dir())
-    print('#')
-    print('# The \'__functions__.sh\' file has been regenerated.')
-    print('#')
-    print('# Run the following command to load the functions:')
-    print('#')
-    print('# \tsource ' + os.path.abspath('__functions__.sh'))
+    # if there's no quiet flag print a summary of the changes
+    if not args.quiet:
+        os.chdir(util.internal_dir())
+        print('#')
+        print('# The \'__functions__.sh\' file has been regenerated.')
+        print('#')
+        print('# Run the following command to load the functions:')
+        print('#')
+        print('# \tsource ' + os.path.abspath('__functions__.sh'))
 
     # go back to the original directory
     os.chdir(curr_dir)
