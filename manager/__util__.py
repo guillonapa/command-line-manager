@@ -107,6 +107,8 @@ def help(args):
             '\n\to       O o       O o       O')
 
 def repl_it(argv):
+    '''Parse the arguments and run the manager's main loop'''
+    
     # the main argument parser
     parser = argparse.ArgumentParser(description='Command line manager for user defined commands.')
 
