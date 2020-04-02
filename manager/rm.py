@@ -1,6 +1,5 @@
 import os
 import __util__ as util
-import load
 
 def rm(args):
     '''Remove a command from the manager'''
@@ -30,4 +29,4 @@ def rm(args):
             print('File not found: ' + shell_file_name)
 
     # regenerate the __functions__.sh file
-    load.load(args)
+    util.repl_it(['load', '--quiet'])
