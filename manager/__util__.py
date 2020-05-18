@@ -99,15 +99,23 @@ def shell_file_name(command):
 
 def help(args):
     '''Additional help for the manager.'''
-    print('\n\tAdditional help for the manager\n'
-            '\n\tO       o O       o O       o'
-            '\n\t| O   o | | O   o | | O   o |'
-            '\n\t| | O | | | | O | | | | O | |'
-            '\n\t| o   O | | o   O | | o   O |'
-            '\n\to       O o       O o       O')
+    print('''  #---------------------------------------------------------#
+  |        _                                                |
+  |    ___| |_ __ ___   __ _ _ __   __ _  __ _  ___ _ __    | 
+  |   / __| | '_ ` _ \ / _` | '_ \ / _` |/ _` |/ _ \ '__|   |
+  |  | (__| | | | | | | (_| | | | | (_| | (_| |  __/ |      |
+  |   \___|_|_| |_| |_|\__,_|_| |_|\__,_|\__, |\___|_|      |
+  |                                      |___/              |
+  |                                                         |
+  |  https://github.com/guillonapa/command-line-manager     |
+  |  version 1.0.0                                          |
+  #---------------------------------------------------------#
+    ''')
+    parser().parse_args(['-h'])
 
-def repl_it(argv):
-    '''Parse the arguments and run the manager's main loop'''
+
+def parser():
+    '''Returns the parser used for the arguments of the manager'''
     
     # the main argument parser
     parser = argparse.ArgumentParser(description='Command line manager for user defined commands.')
@@ -154,8 +162,14 @@ def repl_it(argv):
     # add the default function for the main parser
     parser.set_defaults(func=help)
 
+    return parser
+            
+
+def repl_it(argv):
+    '''Parse the arguments and run the manager's main loop'''
+
     # parse the arguments
-    args = parser.parse_args(argv)
+    args = parser().parse_args(argv)
 
     # apply the appropriate default function
     args.func(args)
