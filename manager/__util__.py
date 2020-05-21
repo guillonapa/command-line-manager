@@ -1,5 +1,6 @@
 import os
 import argparse
+
 from add import add
 from rm import rm
 from ls import ls
@@ -97,6 +98,10 @@ def shell_file_name(command):
     '''Return the name of the shell file for the command'''
     return str(command) + '.sh'
 
+def format_alias(alias):
+    '''Return the string representing the alias in a shell file'''
+    return f'alias {alias}\n'
+
 def help(args):
     '''Additional help for the manager.'''
     print('''  #---------------------------------------------------------#
@@ -116,7 +121,7 @@ def help(args):
 
 def parser():
     '''Returns the parser used for the arguments of the manager'''
-    
+
     # the main argument parser
     parser = argparse.ArgumentParser(description='Command line manager for user defined commands.')
 
@@ -145,6 +150,9 @@ def parser():
     # add additional arguments to the 'rm' subcommand
     parser_rm.add_argument('command', help='The command to be deleted from the registry', nargs='+')
 
+    # add additional arguments to the 'ls' subcommand
+    parser_ls.add_argument('-a', '--aliases', help='Show the aliases that have been defined through the manager', action='store_const', const=True)
+
     # add additional arguments to the 'edit' subcommand
     parser_edit.add_argument('command', help='The command to be edited', nargs=1)
     parser_edit.add_argument('-c', '--command-name', help='The name that will be used to register the command', type=str)
@@ -152,6 +160,7 @@ def parser():
     parser_edit.add_argument('-d', '--description', help='A brief description of what the command does', type=str)
 
     # add additional arguments to the 'add' subcommand
+    parser_add.add_argument('-a', '--alias', help='Add an alias instead of a function (other arguments will be ignored)', type=str)
     parser_add.add_argument('-c', '--command', help='The name that will be used to register the comand', type=str)
     parser_add.add_argument('-n', '--name', help='A human-readable name to identify the command', type=str)
     parser_add.add_argument('-d', '--description', help='A brief description of what the command does', type=str)

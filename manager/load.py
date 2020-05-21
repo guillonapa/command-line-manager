@@ -16,6 +16,13 @@ def load(args):
 
     # attempt to extract all contents from shell files and generate a '__functions.sh__' file
     with open('__functions__.sh', mode='w', encoding='utf-8') as func_file:
+        # add all aliases (if any)
+        with open('__aliases__.sh', mode='r', encoding='utf-8') as aliases_file:
+            func_file.write('# aliases defined through clmanager\n')
+            func_file.writelines(aliases_file.readlines())
+            func_file.write('\n')
+
+        # add all defined functions
         functions = os.listdir(util.lib_dir())
         os.chdir(util.lib_dir())
         for f in functions:

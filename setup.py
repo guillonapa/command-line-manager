@@ -35,3 +35,6 @@ if not os.path.exists('__functions__.sh'):
     print('# After a command has been added you will need to run:')
     print('#')
     print('# \tsource ' + os.path.abspath('__functions__.sh'))
+if not os.path.exists('__aliases__.sh'):
+    with open('__aliases__.sh', mode='w', encoding='utf-8') as f:
+        pass

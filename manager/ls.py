@@ -1,5 +1,6 @@
 import os
 import yaml
+import re
 import __util__ as util
 
 def ls(args):
@@ -7,9 +8,19 @@ def ls(args):
 
     # sanity check 
     util.verify_metadata_dir()
+    util.verify_internal_dir()
 
     # remember the current directory
     curr_dir = os.getcwd()
+
+    # check if we only need to display the aliases
+    if args.aliases:
+        os.chdir(util.internal_dir())
+        with open('__aliases__.sh', mode='r', encoding='utf-8') as f:
+            print('Aliases defined through clmanager:')
+            for i, line in enumerate(f.readlines()):
+                print('{:>4}. {}'.format(str(i + 1), re.sub('^alias ', '', line.strip())))
+        return
 
     # change to lib directory and print all file names (same as commands)
     os.chdir(util.metadata_dir())

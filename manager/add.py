@@ -14,6 +14,10 @@ def add(args):
     command = None
     description = None
 
+    if args.alias:
+        add_alias(args.alias)
+        return
+
     # get the values of any flags that were passed
     if args.name:
         name = args.name
@@ -38,6 +42,21 @@ def add(args):
 
     # create the shell file in lib
     create_entry_point(command)
+
+
+def add_alias(alias):
+    '''Add an alias to the manager'''
+    
+    # remember the current directory
+    curr_dir = os.getcwd()
+
+    # add the alias to the __aliases__.sh file
+    os.chdir(util.internal_dir())
+    with open('__aliases__.sh', mode='a', encoding='utf-8') as f:
+        f.write(util.format_alias(alias))
+
+    # return to the current directory
+    os.chdir(curr_dir)
 
 
 def create_entry_point(command):
