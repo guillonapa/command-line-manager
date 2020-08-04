@@ -52,5 +52,5 @@ source ~/.clmanager/internal/__functions__.sh
 
 ## Shell Completion
 
-To enable script completion on your shell of preference, follow the instructions in `argcomplete`'s [docs](https://kislyuk.github.io/argcomplete).
+The Command Line Manager users `argcomplete` for shell completion. To enable it on your shell of preference, follow the instructions in their [docs](https://kislyuk.github.io/argcomplete).
 
