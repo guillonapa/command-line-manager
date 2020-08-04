@@ -1,5 +1,6 @@
 import os
 import argparse
+import argcomplete
 
 from add import add
 from rm import rm
@@ -177,8 +178,14 @@ def parser():
 def repl_it(argv):
     '''Parse the arguments and run the manager's main loop'''
 
+    # the parser
+    parserObj = parser()
+
+    # autocomplete/suggestions
+    argcomplete.autocomplete(parserObj)
+
     # parse the arguments
-    args = parser().parse_args(argv)
+    args = parserObj.parse_args(argv)
 
     # apply the appropriate default function
     args.func(args)
