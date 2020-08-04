@@ -49,3 +49,8 @@ Finally, for the Command Line Manager to work, you will need to add to your `.ba
 ```sh
 source ~/.clmanager/internal/__functions__.sh
 ```
+
+## Shell Completion
+
+To enable script completion on your shell of preference, follow the instructions in `argcomplete`'s [docs](https://kislyuk.github.io/argcomplete).
+
